@@ -1,0 +1,13 @@
+.Header{
+    width: 100%;
+    max-height: 60 px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #212529;
+}
+.Header__Img{
+    max-width: 400px;
+    height: 70px;
+    margin: 0 auto;
+}

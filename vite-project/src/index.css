@@ -1,0 +1,15 @@
+@import url("./vendor/normalize.css");
+@import url("./fonts/fonts.css");
+@import url("./Components/Page/page.css");
+@import url("./Components/Login/Login.css");
+@import url("./Components/Header/Header.css");
+@import url("./Components/Register/Register.css");
+@import url("./Components/Footer/Footer.css");
+#root {
+  padding: 0 ;
+  margin: 0 auto;
+  max-width: 100%;
+  }
+  ::placeholder {
+    color: #FFFFFF; /* Cambia #999 por el color que desees */
+}
