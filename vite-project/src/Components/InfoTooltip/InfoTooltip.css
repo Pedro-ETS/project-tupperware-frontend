@@ -1,0 +1,64 @@
+.infoTooltip {
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.infoTooltip__window {
+  max-width: 430px;
+  width: 100%;
+  height: 330px;
+  border-radius: 10px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 35px;
+  background: #fff;
+}
+
+.infoTooltip__titulo {
+  text-align: center;
+  font-family: "Inter-Black";
+  font-size: 24px;
+  color: #000;
+}
+
+.infoTooltip__img {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 32px;
+}
+.infoTooltip__btn-closet{
+    width: 40px;
+    height: 40px;
+    background-image: url("../../images/CloseIcon.svg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    border: none;
+    cursor: pointer;
+  
+}
+.infoTooltip__btn-closet:hover {
+opacity: 0.5;
+}
+@media screen and (max-width: 537px) {
+.infoTooltip__btn-closet {
+  width: 20px;
+  height: 20px;
+  top: -33px;
+  right: -0px;
+}
+}

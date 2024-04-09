@@ -1,19 +1,19 @@
 import React from "react";
 function InfoTooltip({ mensaje, image, handleCloseTooltip }) {
   return (
-    <div className="InfoTooltip">
-      <div className="InfoTooltip__window">
+    <div className="infoTooltip">
+      <div className="infoTooltip__window">
         <button
           type="button"
-          className="InfoTooltip__btn-closet"
+          className="infoTooltip__btn-closet"
           onClick={handleCloseTooltip}
         ></button>
         <img
           src={image}
-          className="InfoTooltip__img"
+          className="infoTooltip__img"
           alt="Una imagen de alerta"
         />
-        <h1 className="InfoTooltip__titulo">{mensaje}</h1>
+        <h1 className="infoTooltip__titulo">{mensaje}</h1>
       </div>
     </div>
   );

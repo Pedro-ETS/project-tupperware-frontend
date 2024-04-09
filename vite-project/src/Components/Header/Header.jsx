@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from '../NavBar/NavBar';
-import logoFondo from "../../Images/tupperware.jpg";
+import logoFondo from "../../images/tupperware.jpg";
 function Header(props) {
     return (
         <div>

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import InfoTooltip from "./InfoTooltip";
-// import * as auth from "../utils/auth";
-// import image from "../images/sucesfull.svg";
+ import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import * as auth from "../../utils/auth";
+ import image from "../../images/sucesfull.svg";
 
 function Register(props) {
   const [name, setName] = useState("");
-  const [about, setAbout] = useState("");
-  const [avatar, setAvatar] = useState("");
+  const [address, setAddress] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showTooltip, setShowTooltip] = useState(false);
@@ -16,38 +16,39 @@ function Register(props) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
     if (name === "name") setName(value);
-    if (name === "about") setAbout(value);
-    if (name === "avatar") setAvatar(value);
+    if (name === "address") setAddress(value);
+    if (name === "phone") setPhone(value);
     if (name === "email") setEmail(value);
     if (name === "password") setPassword(value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // try {
-    //   const data = await auth.register(name, about, avatar, password, email);
-    //   console.log(data);
-    //   if (data) {
-    //     setName("");
-    //     setAbout("");
-    //     setAvatar("");
-    //     setEmail("");
-    //     setPassword("");
-    //     setShowTooltip(true);
-    //     setTimeout(() => {
-    //       setShowTooltip(false);
-    //       navigate("/signin");
-    //     }, 7000);
-    //   }
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      const data = await auth.register(name, address, phone, email, password);
+      console.log(data);
+      if (data) {
+        setName("");
+        setAddress("");
+        setPhone("");
+        setEmail("");
+        setPassword("");
+        setShowTooltip(true);
+        setTimeout(() => {
+          setShowTooltip(false);
+          navigate("/signin");
+        }, 7000);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCloseTooltip = () => {
     setShowTooltip(false);
-    navigate("/web_project_around_auth/signin");
+    navigate("/signin");
   };
 
   return (

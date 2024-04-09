@@ -1,0 +1,121 @@
+  .profile {
+    max-width: 880px;
+    margin: 0 auto;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FF811E;
+    border-radius: 10px;
+  }
+.profile__content-fond_opened{
+  display: flex;
+  }
+  .profile__info {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .profile__subtitle {
+    color: #fff;
+    font-family: "Inter-SemiBold";
+    font-size: 42px;
+    max-width: 378px;
+    min-width: 378px;
+    margin-left: 7px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  .profile__text {
+    color: #fff;
+    font-family: "Inter-Regular";
+    font-size: 18px;
+    margin-top: 16px;
+    margin-left: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 280px;
+  }
+  .profile__gmail {
+    color: #fff;
+    font-family: "Inter-Regular";
+    font-size: 18px;
+    margin-top: 16px;
+    margin-left: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 280px;
+  }
+  .profile__content{
+    width: 140px;
+    height: 127px;
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    box-sizing: border-box;
+    border-radius: 50%;
+    background-color: #000;
+  }
+  .profile__btn-edit{
+  width: 24px;
+  height: 24px;
+  margin-top: 18px;
+  margin-left: 24px;
+  background-image: url("../../images/EditButton.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+  border-radius: 5px;
+}
+  .profile__btn-edit:hover{
+    opacity: 0.5;
+  } 
+  .profile__btn-exit{
+    cursor: pointer;
+    color: darkgray;
+  }
+  .profile__btn-exit:hover{
+    opacity: 0.5;
+  }
+  .profile__add-button {
+    width: 150px;
+    height: 51px;
+    background-color: darkgray;
+    background-image: url("../../images/mas.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #ffffff;
+    cursor: pointer;
+  }
+  .profile__add-button:hover {
+    opacity: 0.5;
+  }   
+  @media screen and (max-width: 436px) {
+    .profile__subtitle {
+      font-size: 22px;
+      max-width: 220px;
+      min-width: 220px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .edit-button {
+      margin-top: 0px;
+    }
+    .profile__info {
+      width: 280px;
+      justify-content: space-between;
+    }
+  }
+@media screen and (max-width: 780px) {
+  .profile {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+}

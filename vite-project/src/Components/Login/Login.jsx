@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import * as auth from "../utils/auth";
-// import InfoTooltip from "./InfoTooltip";
-
+import * as auth from "../../utils/auth";
+import InfoTooltip from "../InfoTooltip/InfoTooltip";
+import image from "../../images/error.svg";
 function Login(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showTooltip, setShowTooltip] = useState(false);
+
   const navigate = useNavigate();
   const mensaje = "Uy, algo salio mal. Por favor, intentalo de nuevo";
 
@@ -15,35 +17,34 @@ function Login(props) {
     if (name === "password") setPassword(value);
   };
 
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     if (!email || !password) {
-//       return;
-//     }
-//     try {
-//       const data = await auth.authorize(password, email);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email|| !password) {
+      return;
+    }
+    try {
+      const data = await auth.authorize(password, email);
 
-//       if (data.token) {
-//         // props.handleEmail(email);
-//         setEmail("");
-//         setPassword("");
-//         props.handleLogin(data.token);
-        
-//         navigate("/");
-//       }
-//     } catch (error) {
-//       setShowTooltip(true);
-//     }
-//   };
+      if (data.token) {
+        // props.handleEmail(email);
+        setEmail("");
+        setPassword("");
+        props.handleLogin(data.token);
+        navigate("/");
+      }
+    } catch (error) {
+      setShowTooltip(true);
+    }
+  };
 
   const handleCloseTooltip = () => {
     setShowTooltip(false);
   };
 
   return (
-    <div className="login">
-      
-      <form className="login__form" >
+    <div>
+ <div className="login">
+      <form className="login__form" onSubmit={handleSubmit}>
         <h1 className="login__titulo">iniciar sesion</h1>
         <input
           className="login__input"
@@ -67,8 +68,16 @@ function Login(props) {
           ¿Aún no eres miembro? Regístrate aquí
         </Link>
       </form>
-    
+      {showTooltip && (
+        <InfoTooltip
+          mensaje={mensaje}
+          image={image}
+          handleCloseTooltip={handleCloseTooltip}
+        />
+      )}
     </div>
+    </div>
+   
   );
 }
 

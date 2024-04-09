@@ -1,10 +1,16 @@
 @import url("./vendor/normalize.css");
 @import url("./fonts/fonts.css");
-@import url("./Components/Page/page.css");
-@import url("./Components/Login/Login.css");
-@import url("./Components/Header/Header.css");
-@import url("./Components/Register/Register.css");
-@import url("./Components/Footer/Footer.css");
+@import url("./components/Page/page.css");
+@import url("./components/Login/login.css");
+@import url("./components/Header/header.css");
+@import url("./components/Register/register.css");
+@import url("./components/Profile/profile.css");
+@import url("./components/InfoTooltip/infoTooltip.css");
+@import url("./components/Cards/cards.css");
+@import url("./components/Card/card.css");
+@import url("./components/ProductView/product-viwe.css");
+@import url("./components/Cart/cart.css");
+@import url("./components/Footer/footer.css");
 #root {
   padding: 0 ;
   margin: 0 auto;

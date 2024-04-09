@@ -1,0 +1,97 @@
+.card {
+    width: 282px;
+    height: 381px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 10px;
+    position: relative;
+    padding: 0;
+  }
+  
+  .card__image {
+    width: 100%;
+    height: 282px;
+    border-radius: 10px 10px 0px 0px;
+    cursor: pointer;
+  }  
+  .card__subtitle{
+    min-width: 100%;
+    color: #000;
+    font-family: 'Inter-Black';
+    font-size: 17px;
+    max-width: 230px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  
+  .card__description {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+  
+  .card__price {
+    font-size: 10px;
+    min-width: 100%;
+    color: #666;
+    text-align: center;
+  }
+  .card__content{
+    width: 22px;
+    min-height: 35px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    bottom: 17px;
+    right: 12px;
+  }
+  .card__btn-trash {
+    width: 20px;
+    height: 20px;
+    background-image: url("../../images/trash.svg");
+    background-color: transparent;
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    padding:5px;
+  }
+  .card__add-to-cart-button{
+    border: none;
+    background-color: transparent;
+    
+  }
+  .card__add-to-cart-button:hover{
+    opacity: 0.5;
+  }
+  .card__btn-trash_visible{
+    display: flex;
+  }
+  .card__btn-trash_hidden{
+    display: none;
+  }
+  .card__btn-trash:hover {
+    opacity: 0.5;
+  }
+  .card__btn-love {
+    width: 21px;
+    height: 19px;
+    margin-right: 12px;
+    background-image: url("../../../images/Group.svg");
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 115px;
+  }
+  .card__btn-love:hover {
+    opacity: 0.5;
+  }
+  .card__btn-love_activate {
+    transform: scale(1.2, 1.2);
+    background-image: url("../../images/Like.svg");
+  }
