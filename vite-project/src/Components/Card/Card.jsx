@@ -1,30 +1,27 @@
+import { useState } from "react";
 import { FaShoppingCart } from 'react-icons/fa';
 function Card({
   card,
   productView,
   handleAddProductToCart     
 }) {
-
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const { _id, name, price,stock, link } = card;
    
-const isOwn = true;
-const isLiked =  true; 
+const isLiked =  false; 
+const isLikedCart =  true; 
 
-  const cardDeleteButtonClassName = `card__btn-trash ${isOwn ? "card__btn-trash_visible" : "card__btn-trash_hidden"}`;
   const cardLikeButtonClassName = `card__btn-love ${isLiked ? "card__btn-love_activate" : ""}`;
-
+  const cardCartButtonClassName = `card__add-to-cart ${isLikedCart ? "card__add-to-cart_activate" : ""}`;
   function handleLikeClick() {
     onCardLike(card);
-  }
-  function handleDeleteClick() {
-    ontrashCard();
-    handleCardData(card);
   }
   function handleImgCard() {
     productView({ link, name ,price, stock});    
   } 
-  function handleCartProductsClick(){
-    handleAddProductToCart ({_id, quantity: 1}) ;
+  function handleCartProductsClick(_id){
+    handleAddProductToCart ({_id}) ;
+    setIsAddedToCart(true);
   }
   return (
 <div key={_id} className="card">
@@ -34,9 +31,13 @@ const isLiked =  true;
      <p className="card__price">{"Existencias:"+stock}</p>
       <div className="card__contet">
         <button className={cardLikeButtonClassName} onClick={handleLikeClick}></button>
-        <button className="card__add-to-cart-button" onClick={handleCartProductsClick}>
-      <FaShoppingCart />
-    </button>
+        {isAddedToCart ? (
+          <button className="card__cart-button"></button>
+        ) : (
+          <button className={cardCartButtonClassName } onClick={() => handleCartProductsClick(_id)}>
+            
+          </button>
+        )}
       </div>
     </div>  
 );

@@ -38,29 +38,6 @@ function App() {
     setProducto({name,link,price,stock});
   console.log(name+price+stock);
   }
-  const handleAddToCart = (_id) => {
-    console.log(cartProducts);
-    // setCartProducts(prevProducts =>
-    //   prevProducts.map(product =>
-    //     product._id === _id ? { 
-    //       ...product, 
-    //       quantity: product.quantity + 1,
-    //       priceTotal: (product.price * (product.quantity + 1))
-    //     } : product
-    //   )
-    // );
-  };
-
-  const handleRemoveFromCart = (_id) => {
-    console.log(cartProducts);
-    // setCartProducts(prevProducts =>
-    //   prevProducts.map(product =>
-    //     product._id === _id ? { ...product, quantity: Math.max(0, product.quantity - 1),
-    //       priceTotal: (product.price * (product.quantity - 1))
-    //     } : product
-    //   )
-    // );
-  };
  
   function tokenCheck() {
     const jwt = localStorage.getItem("token");
@@ -76,18 +53,30 @@ function App() {
     }
   }
 
-  function handleAddProductToCart(dataCart) {
-    api
-      .AddProductToCart("carts", dataCart)
-      .then((res) => {     
-        console.log("informacion al agregar un producto");
-        setCartProducts(res.data);
-      console.log(res.data);
-      })
-      .catch((error) => {
-        alert("Error al agregar un producto al carrito:", error);
-      });
+
+  async function handleAddProductToCart(dataCart) {
+    const cardId=dataCart._id;
+    try {
+      const res = await api.AddProductToCart(`carts/${cardId}/quantity`);//agrego un producto al carro
+      const cartProducts= await api.getInitialProductsCart("carts");//obtengo los productos de mi carro actualizado
+        setCartProducts(cartProducts.data);
+    } catch (error) {
+      alert("Error al agregar un producto al carrito:", error);
+    }
   }
+
+
+  async function handleSubtractFromCartQuantity(dataCart) {
+ const cardId=dataCart._id;
+    try {
+      const res = await api.RemoveProductQuantity(`carts/${cardId}/quantity`);//elimino un producto al carro
+      const cartProducts= await api.getInitialProductsCart("carts");//obtengo los productos de mi carro actualizado
+        setCartProducts(cartProducts.data);
+    } catch (error) {
+      alert("Error al restar una cantidad del producto:", error);
+    }
+  }
+  
 
   useEffect(() => {
     (async () => {
@@ -95,6 +84,7 @@ function App() {
         await tokenCheck();
         const initialCardsData = await api.getInitialCards("cards");
         setCards(initialCardsData.data);
+        
         const initialCartProducts= await api.getInitialProductsCart("carts");
         console.log(initialCartProducts);
         setCartProducts(initialCartProducts.data);
@@ -140,8 +130,8 @@ function App() {
                 token={token}
                 element={<Cart 
                   cartProducts={cartProducts}
-                  onAddCart={handleAddToCart}
-                  onRemoveCart={handleRemoveFromCart}
+                  handleAddProductToCart={handleAddProductToCart}
+                  handleSubtractFromCartQuantity={handleSubtractFromCartQuantity}
                   />
               }>
                 </ProtectedRoute>

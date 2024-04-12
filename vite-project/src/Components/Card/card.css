@@ -48,41 +48,34 @@
     bottom: 17px;
     right: 12px;
   }
-  .card__btn-trash {
-    width: 20px;
-    height: 20px;
-    background-image: url("../../images/trash.svg");
-    background-color: transparent;
-    position: absolute;
-    top: 18px;
-    right: 15px;
+  .card__add-to-cart{
     border: none;
-    cursor: pointer;
-    box-sizing: border-box;
-    padding:5px;
-  }
-  .card__add-to-cart-button{
-    border: none;
+    background-image: url("../../images/cart.svg");
     background-color: transparent;
-    
+    border: none;
+    background-size: cover; /* Ajusta la imagen para cubrir completamente el área del botón */
+    background-position: center; /* Centra la imagen dentro del botón */
+    width: 21px; /* Hacer que la imagen se adapte al ancho del contenedor */
+    height: 19px;
   }
-  .card__add-to-cart-button:hover{
+  .card__add-to-cart_activate{
+    border: none;
+    background-image: url("../../images/cartFull.svg");
+    border: none;
+    width: 21px; /* Hacer que la imagen se adapte al ancho del contenedor */
+    height: 19px;
+    background-size: cover; /* Ajusta la imagen para cubrir completamente el área del botón */
+    background-position: center; /* Centra la imagen dentro del botón */
+  }
+  .card__add-to-cart:hover{
     opacity: 0.5;
   }
-  .card__btn-trash_visible{
-    display: flex;
-  }
-  .card__btn-trash_hidden{
-    display: none;
-  }
-  .card__btn-trash:hover {
-    opacity: 0.5;
-  }
+
   .card__btn-love {
     width: 21px;
     height: 19px;
     margin-right: 12px;
-    background-image: url("../../../images/Group.svg");
+    background-image: url("../../images/LoveVacio.svg");
     border: none;
     background-color: transparent;
     cursor: pointer;

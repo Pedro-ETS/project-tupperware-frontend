@@ -31,17 +31,6 @@ export default class Api {
         }
       );
     }
-    setCard(fullLink, formData) {
-      const url = `${this._url}${fullLink}`;
-      const options = {
-        method: "POST",
-        body: JSON.stringify({
-          link: formData.link,
-          name: formData.name,
-        }),
-      };
-      return this._fetchWithAuthorization(url, options);
-    }
   
     getUser(fullLink) {
       return this._fetchWithAuthorization(`${this._url}${fullLink}`, {}).catch(
@@ -52,31 +41,6 @@ export default class Api {
       );
     }
     
-    // changeLikeCardStatus(isLiKed, fullLink, cardId,currentUser) {
-    //   const dataUser = currentUser ? {...currentUser} : {};
-    //   const url = `${this._url}${fullLink + cardId}/likes`;
-    //   console.log(url);
-    //   if (isLiKed) {
-    //     const options = {
-    //       method: "PUT",
-    //       body: JSON.stringify(dataUser)
-    //     };
-    //     return this._fetchWithAuthorization(url, options);
-    //   } else {
-    //     const options = {
-    //       method: "DELETE",
-    //     };
-    //     return this._fetchWithAuthorization(url, options);
-    //   }
-    // }
-  
-    // deleteCard(fullLink, cardId) {
-    //   const url = `${this._url}${fullLink + cardId}`;
-    //   const options = {
-    //     method: "DELETE",
-    //   };
-    //   return this._fetchWithAuthorization(url, options);
-    // }
     setUserInfo(fullLink, dataUser) {
       const url = `${this._url}${fullLink}`;
       const options = {
@@ -88,24 +52,11 @@ export default class Api {
       };
       return this._fetchWithAuthorization(url, options);
     }
-    // modifyImgUser(fullLink, data) {
-    //   const url = `${this._url}${fullLink}`;
-    //   const options = {
-    //     method: "PATCH",
-    //     body: JSON.stringify({
-    //       avatar: data.avatar,
-    //     }),
-    //   };
-    //   return this._fetchWithAuthorization(url, options);
-    // }
-    AddProductToCart(fullLink, dataCart) { 
+   
+    AddProductToCart(fullLink) { 
       const url = `${this._url}${fullLink}`;
       const options = {
         method: "POST",
-        body: JSON.stringify({
-          cardId: dataCart._id,
-          quantity: dataCart.quantity,
-        }),
       };
       return this._fetchWithAuthorization(url, options);
     }
@@ -119,5 +70,13 @@ export default class Api {
         }
       );
     }
-  }
-  
+      RemoveProductQuantity(fullLink){
+        const url = `${this._url}${fullLink}`;
+        console.log(url);
+          const options = {
+            method: "DELETE",
+          }; 
+          return this._fetchWithAuthorization(url, options);
+      }
+    }
+    
