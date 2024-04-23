@@ -2,7 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome, FaShoppingCart, FaUser, FaUserPlus, FaHeart } from 'react-icons/fa';
 
-const NavBar = (props) => {
+const NavBar = ({cartProducts}) => {
+  const totalCartItems = cartProducts.reduce((total, product) => total + product.quantity, 0);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -34,7 +36,7 @@ const NavBar = (props) => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <NavLink exact className="nav-link" to="/">
+              <NavLink exact="true" className="nav-link" to="/">
                 <FaHome /> 
               </NavLink>
             </li>
@@ -46,6 +48,7 @@ const NavBar = (props) => {
             <li className="nav-item">
               <NavLink  className="nav-link" to="/cart">
                 <FaShoppingCart /> 
+                {totalCartItems > 0 && <span className="badge bg-secondary">{totalCartItems}</span>} 
               </NavLink>
             </li>
             <li className="nav-item">
@@ -67,7 +70,7 @@ const NavBar = (props) => {
             </li>
             <li className="nav-item">
               <NavLink  className="nav-link" to="/departamento/productos">
-                productos
+                Productos mas vendidos
               </NavLink>
             </li>
           </ul>

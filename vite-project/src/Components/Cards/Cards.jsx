@@ -1,9 +1,12 @@
 import React from 'react';
-import Card from "../Card/Card";
+import Card from '../Card/Card';
 function Cards({
   cards,
   productView,
-  handleAddProductToCart
+  handleAddProductToCart,
+  cartProducts,
+  handleAddProductToFavorites,
+  productsFavorities
 }) {
     return (
         <div className="cards">
@@ -13,6 +16,9 @@ function Cards({
             card={card}
             productView={productView}
             handleAddProductToCart={handleAddProductToCart}
+            cartProducts={cartProducts}
+            handleAddProductToFavorites={handleAddProductToFavorites}
+            productsFavorities={productsFavorities}
             />
           ))}
         </div>

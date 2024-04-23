@@ -1,15 +1,15 @@
 export default class Api {
-    constructor({ address, token, datos }) {
+    constructor({ address, datos }) {
       this._url = address;
-      this._authorization = token;
       this._datos = datos;
     }
     _fetchWithAuthorization(url, options) {
+      const token = localStorage.getItem('token');
       return fetch(url, {
         ...options,
         headers: {
           ...options.headers,
-          authorization: `Bearer ${this._authorization}`,
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       }).then((res) => {
@@ -53,23 +53,28 @@ export default class Api {
       return this._fetchWithAuthorization(url, options);
     }
    
-    AddProductToCart(fullLink) { 
+    AddProductToCart(fullLink,dataProduct) {     
       const url = `${this._url}${fullLink}`;
       const options = {
         method: "POST",
+        body: JSON.stringify({
+          productName: dataProduct.productName,
+          price: Number(dataProduct.price),
+          stock: Number(dataProduct.stock),
+        }),
       };
       return this._fetchWithAuthorization(url, options);
     }
-    
-    getInitialProductsCart(fullLink) {
+    getProductsCart(fullLink) {
       console.log(`${this._url}${fullLink}`);
       return this._fetchWithAuthorization(`${this._url}${fullLink}`, {}).catch(
         (error) => {
-          console.error(`Error fetching initial cards: ${error.message}`);
+          console.error(`Error fetching al obtener productos: ${error.message}`);
           throw error;
         }
       );
     }
+    
       RemoveProductQuantity(fullLink){
         const url = `${this._url}${fullLink}`;
         console.log(url);
@@ -77,6 +82,27 @@ export default class Api {
             method: "DELETE",
           }; 
           return this._fetchWithAuthorization(url, options);
+      }
+      AddProductToFavorites(fullLink,dataProduct) {     
+        const url = `${this._url}${fullLink}`;
+        const options = {
+          method: "POST",
+          body: JSON.stringify({
+            productName: dataProduct.productName,
+            price: Number(dataProduct.price),
+            stock: Number(dataProduct.stock),
+          }),
+        };
+        return this._fetchWithAuthorization(url, options);
+      }
+      getFavoritesProducts(fullLink) {  
+        console.log(`${this._url}${fullLink}`);
+        return this._fetchWithAuthorization(`${this._url}${fullLink}`, {}).catch(
+          (error) => {
+            console.error(`Error fetching al obtener productos: ${error.message}`);
+            throw error;
+          }
+        );
       }
     }
     
