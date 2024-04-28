@@ -4,15 +4,13 @@ function Card({
   handleAddProductToCart,
   cartProducts,
   handleAddProductToFavorites,
-  productsFavorities,
+  favoriteProducts,
 }) {
   const { _id, name, price, stock, link } = card;
   const isProductInCart = cartProducts.some(
     (product) => product.productId === _id
   );
-  console.log("favoritos del usuario");
-  console.log(productsFavorities);
-  const isLiked = productsFavorities.some(
+  const isLiked = favoriteProducts.some(
     (product) => product.productId === _id
   );
   const cardLikeButtonClassName = `card__btn-love ${

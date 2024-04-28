@@ -6,7 +6,7 @@ function Cards({
   handleAddProductToCart,
   cartProducts,
   handleAddProductToFavorites,
-  productsFavorities
+  favoriteProducts
 }) {
     return (
         <div className="cards">
@@ -18,7 +18,7 @@ function Cards({
             handleAddProductToCart={handleAddProductToCart}
             cartProducts={cartProducts}
             handleAddProductToFavorites={handleAddProductToFavorites}
-            productsFavorities={productsFavorities}
+            favoriteProducts={favoriteProducts}
             />
           ))}
         </div>

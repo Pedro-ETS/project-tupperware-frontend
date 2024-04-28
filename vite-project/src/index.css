@@ -10,6 +10,7 @@
 @import url("./components/Card/card.css");
 @import url("./components/ProductView/product-viwe.css");
 @import url("./components/Cart/cart.css");
+@import url("./components/Favorites/favorites.css");
 @import url("./components/Footer/footer.css");
 #root {
   padding: 0 ;
@@ -17,5 +18,5 @@
   max-width: 100%;
   }
   ::placeholder {
-    color: #FFFFFF; /* Cambia #999 por el color que desees */
+    color: #FFFFFF; 
 }

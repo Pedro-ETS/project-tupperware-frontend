@@ -5,7 +5,7 @@ import ProductView from "../ProductView/ProductView";
 function Main({
     cards,
     cartProducts,
-    productsFavorities,
+    favoriteProducts,
     handleLogin,
     productView,
     productoData,
@@ -13,17 +13,18 @@ function Main({
     handleAddProductToCart,
     clearCartStatus,
     clearCurrentUsert,
-    handleAddProductToFavorites
+    handleAddProductToFavorites,
+    clearFavorites
 }) {
     return (
         <div>
-            <Profile handleLogin={handleLogin} clearCartStatus={clearCartStatus} clearCurrentUsert={clearCurrentUsert}/>
+            <Profile handleLogin={handleLogin} clearCartStatus={clearCartStatus} clearCurrentUsert={clearCurrentUsert} clearFavorites={clearFavorites}/>
             <Cards cards={cards} 
             productView={productView} 
             handleAddProductToCart={handleAddProductToCart}
             cartProducts={cartProducts} 
             handleAddProductToFavorites={handleAddProductToFavorites}
-            productsFavorities={productsFavorities}
+            favoriteProducts={favoriteProducts}
             />
             {productoData !== null ? (<ProductView productoData={productoData} closeAllPopups={closeAllPopups}/>) : null}
           

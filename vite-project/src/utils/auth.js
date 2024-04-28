@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000";  //"https://register.nomoreparties.co  subdomain para regis y aut"
+export const BASE_URL = "https://project-tupperware-backend.vercel.app";  //"https://register.nomoreparties.co  subdomain para regis y aut"
 
 export const register = (name, address, phone, email, password) => {//registraria al usuario y devolveria la informacion del usuario 
   return fetch(`${BASE_URL}/signup`, {

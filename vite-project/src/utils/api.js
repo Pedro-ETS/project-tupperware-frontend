@@ -1,7 +1,7 @@
 import Api from "../components/Api/Api";
 
 const api = new Api({
-  address: "http://localhost:3000/",
+  address: "https://project-tupperware-backend.vercel.app/",
 });
 export default api;
 

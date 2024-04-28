@@ -1,14 +1,15 @@
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Header from '../Header/Header';
-import Login from '../Login/Login.jsx';
-import Register from '../Register/Register.jsx';
-import Main from '../Main/Main.jsx';  
-import Footer from '../Footer/Footer';
-import Cart from '../Cart/Cart.jsx';
+import Header from "../Header/Header";
+import Login from "../Login/Login.jsx";
+import Register from "../Register/Register.jsx";
+import Main from "../Main/Main.jsx";
+import Footer from "../Footer/Footer";
+import Cart from "../Cart/Cart.jsx";
+import Favorites from "../Favorites/favorites.jsx";
 import api from "../../utils/api.js";
 import CurrentUserContext from "../../contexts/CurrentUserContext.jsx";
 import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute.jsx";
@@ -19,7 +20,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [producto, setProducto] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
-  const [productsFavorities, setproductsFavorities] = useState([]);
+  const [favoriteProducts, setFavoriteProducts] = useState([]);
   const navigate = useNavigate();
 
   const closeAllPopups = () => {
@@ -28,76 +29,83 @@ function App() {
   function handleLogin(data) {
     setToken(data);
   }
-  function clearCartStatus(){
+  function clearCartStatus() {
     setCartProducts([]);
   }
-  function clearCurrentUsert(){ 
+  function clearCurrentUsert() {
     setCurrentUser(null);
   }
-
-  function productView({name, link, price, stock}){
-    setProducto({name,link,price,stock});
+  function clearFavorites() {
+    setFavoriteProducts([]);
+  }
+  function productView({ name, link, price, stock }) {
+    setProducto({ name, link, price, stock });
   }
   function tokenCheck() {
     const jwt = localStorage.getItem("token");
     if (jwt) {
-      auth.checkToken(jwt).then((res) => {  
+      auth.checkToken(jwt).then((res) => {
         if (res) {
           setCurrentUser(res);
           setToken(jwt);
           setCartProducts(res.cart);
-          setproductsFavorities(res.favorites);
+          setFavoriteProducts(res.favorites);
           navigate("/");
-        } 
+        }
       });
     }
   }
-
-  async function handleAddProductToCart(dataProduct) { 
-    let productId=dataProduct.productId; 
+  async function handleAddProductToCart(dataProduct) {
+    let productId = dataProduct.productId;
     try {
-      const res = await api.AddProductToCart(`users/${productId}/add-to-cart`,dataProduct);
-        const CartProducts= await api.getProductsCart("users/products/Cart");
-        const newCartProducts = [...CartProducts.data]; 
-        setCartProducts(newCartProducts);
-        
+      const res = await api.AddProductToCart(
+        `users/${productId}/add-to-cart`,
+        dataProduct
+      );
+      const CartProducts = await api.getProductsCart("users/products/Cart");
+      const newCartProducts = [...CartProducts.data];
+      setCartProducts(newCartProducts);
     } catch (error) {
       alert("Error al agregar un producto al carrito:", error);
     }
   }
 
-
-    async function handleSubtractFromCartQuantity(dataProduct) { 
-      let productId=dataProduct.productId; 
+  async function handleSubtractFromCartQuantity(dataProduct) {
+    let productId = dataProduct.productId;
     try {
-      const res = await api.RemoveProductQuantity(`users/${productId}/delete-to-cart`);
-      const cartProducts= await api.getProductsCart("users/products/Cart");
-      const newCartProducts = [...cartProducts.data]; 
-        setCartProducts(newCartProducts);
+      const res = await api.RemoveProductQuantity(
+        `users/${productId}/delete-to-cart`
+      );
+      const cartProducts = await api.getProductsCart("users/products/Cart");
+      const newCartProducts = [...cartProducts.data];
+      setCartProducts(newCartProducts);
     } catch (error) {
       alert("Error al restar una cantidad del producto:", error);
     }
   }
 
-  async function handleAddProductToFavorites(dataProduct) { 
-    let productId=dataProduct.productId; 
-
+  async function handleAddProductToFavorites(dataProduct) {
+    let productId = dataProduct.productId;
     try {
-      const res = await api.AddProductToFavorites(`users/${productId}/add-to-favorites`,dataProduct);
-      const favoritesProducts= await api.getFavoritesProducts("users/products/favorites");
-      const newfavoritesProducts = [...favoritesProducts.data]; 
-        setproductsFavorities(newfavoritesProducts);
+      const res = await api.AddProductToFavorites(
+        `users/${productId}/add-to-favorites`,
+        dataProduct
+      );
+      const initialFavoritesProducts = await api.getFavoritesProducts(
+        "users/products/favorites"
+      );
+      const newfavoritesProducts = [...initialFavoritesProducts.data];
+      setFavoriteProducts(newfavoritesProducts);
     } catch (error) {
       alert("Error al agregar un producto a favoritos:", error);
     }
   }
-     
-  useEffect(() => { 
-    console.log("se actualizo el useEffect");
+
+  useEffect(() => {
     (async () => {
       try {
-          await tokenCheck();
-          if (token) { 
+        await tokenCheck();
+        if (token) {
           const initialCardsData = await api.getInitialCards("cards");
           setCards(initialCardsData.data);
         }
@@ -106,83 +114,78 @@ function App() {
       }
     })();
   }, [token]);
-  
+
   return (
     <>
-     <div className="page">
-     <CurrentUserContext.Provider value={currentUser}>
-     <Header cartProducts={cartProducts}/>
-     <Routes>
-            <Route path="/signin" element={<Login handleLogin={handleLogin}/>}/>
-            <Route path="/signup" element={<Register/>}/>
-            <Route 
-            exact
-            path="/" 
-            element={
-              <ProtectedRoute
-                token={token}
-                element={
-                  <Main
-                  cards={cards}
-                  cartProducts={cartProducts}
-                  productsFavorities={productsFavorities}
-                  handleLogin={handleLogin}
-                  productView={productView}
-                  productoData={producto}
-                  closeAllPopups={closeAllPopups}
-                  handleAddProductToCart={handleAddProductToCart}
-                  clearCartStatus={clearCartStatus}
-                  clearCurrentUsert={clearCurrentUsert}
-                  handleAddProductToFavorites={handleAddProductToFavorites}
-                  />
-                  
-                  }>
-              </ProtectedRoute>
-            }
+      <div className="page">
+        <CurrentUserContext.Provider value={currentUser}>
+          <Header
+            cartProducts={cartProducts}
+            favoriteProducts={favoriteProducts}
+          />
+          <Routes>
+            <Route
+              path="/signin"
+              element={<Login handleLogin={handleLogin} />}
             />
-            <Route 
-            path="/cart"
-            element={
-              <ProtectedRoute
-                token={token}
-                element={<Cart 
-                  cartProducts={cartProducts}
-                  handleAddProductToCart={handleAddProductToCart}
-                  handleSubtractFromCartQuantity={handleSubtractFromCartQuantity}
-                  />
-              }>
-                </ProtectedRoute>
-              
-              }/>
-
-
-
-          <Route 
-            path="/favorites"
-            element={
-              <ProtectedRoute
-                token={token}
-                element={
-                <Cart 
-                  cartProducts={cartProducts}
-                  handleAddProductToCart={handleAddProductToCart}
-                  handleSubtractFromCartQuantity={handleSubtractFromCartQuantity}
-                  />
-              }>
-                </ProtectedRoute>
-              
-              }/>
-
-            
-
-
-            </Routes>
-     
-     <Footer/>
-     </CurrentUserContext.Provider>
-    </div>
+            <Route path="/signup" element={<Register />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <ProtectedRoute
+                  token={token}
+                  element={
+                    <Main
+                      cards={cards}
+                      cartProducts={cartProducts}
+                      favoriteProducts={favoriteProducts}
+                      handleLogin={handleLogin}
+                      productView={productView}
+                      productoData={producto}
+                      closeAllPopups={closeAllPopups}
+                      handleAddProductToCart={handleAddProductToCart}
+                      clearCartStatus={clearCartStatus}
+                      clearCurrentUsert={clearCurrentUsert}
+                      handleAddProductToFavorites={handleAddProductToFavorites}
+                      clearFavorites={clearFavorites}
+                    />
+                  }
+                ></ProtectedRoute>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <ProtectedRoute
+                  token={token}
+                  element={
+                    <Cart
+                      cartProducts={cartProducts}
+                      handleAddProductToCart={handleAddProductToCart}
+                      handleSubtractFromCartQuantity={
+                        handleSubtractFromCartQuantity
+                      }
+                    />
+                  }
+                ></ProtectedRoute>
+              }
+            />
+            <Route
+              path="/favorites"
+              element={
+                <ProtectedRoute
+                  token={token}
+                  element={<Favorites favoriteProducts={favoriteProducts} />}
+                ></ProtectedRoute>
+              }
+            />
+          </Routes>
+          <Footer />
+        </CurrentUserContext.Provider>
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

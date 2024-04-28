@@ -2,7 +2,7 @@
   import { FaSignOutAlt } from 'react-icons/fa';
   import { NavLink } from "react-router-dom";
   import CurrentUserContext from "../../contexts/CurrentUserContext";
-  function Profile({handleLogin,clearCartStatus,clearCurrentUsert}) {
+  function Profile({handleLogin,clearCartStatus,clearCurrentUsert,clearFavorites}) {
     const currentUser = React.useContext(CurrentUserContext);
     const name= currentUser && currentUser.name;
     const address = currentUser && currentUser.address;
@@ -13,6 +13,7 @@
       handleLogin(null);
       clearCartStatus();
       clearCurrentUsert();
+      clearFavorites();
     }
 
     return (
@@ -26,7 +27,6 @@
             <p id="profiletext" className="profile__gmail">
               {email}
             </p>
-            <button className="profile__btn-edit"></button>
             <NavLink  className="profile__btn-exit" onClick={signOut}  to="/signin">
             <FaSignOutAlt />
                 </NavLink>

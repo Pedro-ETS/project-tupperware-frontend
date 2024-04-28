@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome, FaShoppingCart, FaUser, FaUserPlus, FaHeart } from 'react-icons/fa';
 
-const NavBar = ({cartProducts}) => {
+const NavBar = ({cartProducts,favoriteProducts}) => {
   const totalCartItems = cartProducts.reduce((total, product) => total + product.quantity, 0);
-
+  const totalFavoritesItems = favoriteProducts.length;
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -43,6 +43,7 @@ const NavBar = ({cartProducts}) => {
             <li className="nav-item">
               <NavLink  className="nav-link" to="/favorites">
                 <FaHeart /> 
+                {totalFavoritesItems  > 0 && <span className="badge bg-secondary">{totalFavoritesItems }</span>} 
               </NavLink>
             </li>
             <li className="nav-item">
@@ -54,23 +55,11 @@ const NavBar = ({cartProducts}) => {
             <li className="nav-item">
               <NavLink  className="nav-link" to="/signin">
                 <FaUser /> 
-              </NavLink>
+              </NavLink>    
             </li>
             <li className="nav-item">
               <NavLink className="nav-link" to="/signup">
                 <FaUserPlus /> 
-              </NavLink>
-            </li>
-          </ul>
-          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-            <li className="nav-item">
-              <NavLink  className="nav-link" to="/departamento/ofertas">
-                ofertas
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink  className="nav-link" to="/departamento/productos">
-                Productos mas vendidos
               </NavLink>
             </li>
           </ul>
