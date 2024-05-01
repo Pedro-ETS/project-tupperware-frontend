@@ -1,13 +1,17 @@
-.Header{
+.header{
     width: 100%;
     max-height: 60 px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: #212529;
+    background-color: bisque;
+    padding-top: 10px;
 }
-.Header__Img{
+.header__titulo{
     max-width: 400px;
     height: 70px;
+    color: #F206FD;
+    font-family: "Inter-Black";
+    font-size: 50px;
     margin: 0 auto;
 }

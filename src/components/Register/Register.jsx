@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
  import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import * as auth from "../../utils/auth";
- import image from "../../images/sucesfull.svg";
-
+import image from "../../images/sucesfull.svg";
+import imageError from "../../images/error.svg";//error
 function Register(props) {
   const [name, setName] = useState("");
   const [address, setAddress] = useState("");
@@ -11,8 +11,10 @@ function Register(props) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showTooltip, setShowTooltip] = useState(false);
+  const [showTooltipError, setShowTooltipError] = useState(false);//error
   const navigate = useNavigate();
   const mensaje = "¡Correcto!. Ya estas registrado";
+  const mensajeError = "¡Lo siento!. No se completo el registro";
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +45,7 @@ function Register(props) {
       }
     } catch (error) {
       console.log(error);
+      setShowTooltipError(true);
     }
   };
 
@@ -51,6 +54,10 @@ function Register(props) {
     navigate("/signin");
   };
 
+  const handleCloseTooltipError = () => {
+    setShowTooltipError(false);
+  };
+  
   return (
     <div className="register">
       <form className="register__form" onSubmit={handleSubmit}>
@@ -93,6 +100,7 @@ function Register(props) {
           placeholder="Contraseña"
           name="password"
           type="password"
+          minLength={8}
           value={password}
           onChange={handleChange}
         />
@@ -106,6 +114,13 @@ function Register(props) {
           mensaje={mensaje}
           image={image}
           handleCloseTooltip={handleCloseTooltip}
+        />
+      )}
+      {showTooltipError && (
+        <InfoTooltip
+          mensaje={mensajeError}
+          image={imageError}
+          handleCloseTooltip={handleCloseTooltipError}
         />
       )}
     </div>

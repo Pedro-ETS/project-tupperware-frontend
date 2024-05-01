@@ -16,7 +16,7 @@ import ProtectedRoute from "../../components/ProtectedRoute/ProtectedRoute.jsx";
 import * as auth from "../../utils/auth.js";
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState(localStorage.getItem("token") || null);
   const [cards, setCards] = useState([]);
   const [producto, setProducto] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
@@ -42,14 +42,17 @@ function App() {
     setProducto({ name, link, price, stock });
   }
   function tokenCheck() {
-    const jwt = localStorage.getItem("token");
-    if (jwt) {
+    console.log("se llamo el tokenchek");
+
+    if (localStorage.getItem("token")) {
+      const jwt = localStorage.getItem("token");
       auth.checkToken(jwt).then((res) => {
         if (res) {
           setCurrentUser(res);
           setToken(jwt);
           setCartProducts(res.cart);
           setFavoriteProducts(res.favorites);
+          console.log("se ejecuto el /");
           navigate("/");
         }
       });
@@ -125,11 +128,6 @@ function App() {
           />
           <Routes>
             <Route
-              path="/signin"
-              element={<Login handleLogin={handleLogin} />}
-            />
-            <Route path="/signup" element={<Register />} />
-            <Route
               exact
               path="/"
               element={
@@ -154,6 +152,11 @@ function App() {
                 ></ProtectedRoute>
               }
             />
+            <Route
+              path="/signin"
+              element={<Login handleLogin={handleLogin} />}
+            />
+            <Route path="/signup" element={<Register />} />
             <Route
               path="/cart"
               element={

@@ -1,52 +1,45 @@
-export const BASE_URL = "https://project-tupperware-backend.vercel.app";  //"https://register.nomoreparties.co  subdomain para regis y aut"
+export const BASE_URL = "https://project-tupperware-backend.vercel.app"; 
 
-export const register = (name, address, phone, email, password) => {//registraria al usuario y devolveria la informacion del usuario 
-  return fetch(`${BASE_URL}/signup`, {
-    method: "POST",
-    headers: {   
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name,
-      address,
-      phone,
-      email,
-      password
-    }),
-  })
-    .then((response) => {
-      return response.json();
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => console.log(err));
-};
-
-export const authorize = (password, email) => {//comprobamos datos al iniciar sesion para meter el jwt en el  localstorage 
-  return fetch(`${BASE_URL}/signin`, {
-    method: "POST",
+async function sendRequest(url, method, data) {
+  const response = await fetch(`${BASE_URL}${url}`, {
+    method,
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ password, email }),
-  })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(`Error en la solicitud: ${response.statusText}`);
-      }
-      return response.json();
-    })
-    .then((data) => {
-      if (data.token) {
-        localStorage.setItem("token", data.token);
-        return data;
-      }
-    })
-    .catch((err) => console.log(err));
-};
+    body: JSON.stringify(data),
+  });
 
-export const checkToken = (token) => {//verificamos si el token es valido
+  if (!response.ok) {
+    throw new Error(`Error: ${response.statusText} (${response.status})`);
+  }
+
+  return await response.json();
+}
+
+export async function register(name, address, phone, email, password) {
+  try {
+    const userData = await sendRequest('/signup', 'POST', { name, address, phone, email, password });
+    return userData;
+  } catch (error) {
+    console.error('Error registering user:', error);
+    throw error;
+  }
+}
+
+export async function authorize(password, email) {
+  try {
+    const userData = await sendRequest('/signin', 'POST', { password, email});
+    if (userData.token) {
+      localStorage.setItem("token", userData.token);
+    }
+    return userData;
+  } catch (error) {
+    console.error('Error authorizing user:', error);
+    throw error;
+  }
+}
+
+export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {

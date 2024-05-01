@@ -2,7 +2,12 @@
 ### Descripción general
 *La funcionalidad de este proyecto es poner en práctica todo lo aprendido hasta el momento para poder culminar el curso de desarrollo web,  son realmente útiles y necesarias. Agrege un link de enlacé, el cual es donde desplege mi página.*
  
- - Cabe recalcar que el carrito de compras termina en la gestión de productos por el tiempo ya no implemente la pasarela de pago, en la parte de favoritos solo se agregan a la seccion me falto poderlos pasar al carro de copras como también la búsqueda de productos. Eventualmente seguire trabajando en este proyecto
+ - Cabe recalcar que el carrito de compras termina en la gestión de productos por el tiempo ya no implemente la pasarela de pago, en la parte de favoritos solo se agregan a la seccion me falto poderlos pasar al carro de copras como también la búsqueda de productos. Eventualmente seguire trabajando en este proyecto.
+ 
+ -Restructure el codigo repetitivo apoyándome de  jsinspect, agregue unas mejoras al proyecto, respecto al inconveniente que tuvo con el login lo que paso que no se registró el usuario en ningún momento, la contraseña mínimo tiene que tener 8 caracteres, ya válido con un componente de error si algo fallo en el registro, pero igual proporciono algunas credenciales reciba un cordial saludo.
+
+ - Horacio@gmail.com password 12345678
+ - Mike@gmail.com password Mike1234
 
 1. **Flex box**
 - Es un módulo de diseño que se creó para mejorar la forma en la que se hace diseño responsive, evitando así el uso de float, escribiendo menos código y facilitando el posicionamiento de elementos, incluso no teniendo noción del tamaño de éstos. Básicamente la idea de Flexbox es poder alterar el ancho, alto y posicionamiento de elementos de la mejor manera con el espacio del que disponemos.

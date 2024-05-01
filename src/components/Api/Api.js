@@ -20,27 +20,30 @@ export default class Api {
       }
     });
   }
-
+  _fetchData(fullLink, options, errorMessage) {
+    return this._fetchWithAuthorization(`${this._url}${fullLink}`, options)
+      .catch((error) => {
+        console.error(`Error fetching ${errorMessage}: ${error.message}`);
+        throw error;
+      });
+  }
+  _createOptions(dataProduct) {
+    return {
+      method: "POST",
+      body: JSON.stringify({
+        productName: dataProduct.productName,
+        price: Number(dataProduct.price),
+        stock: Number(dataProduct.stock),
+      }),
+    };
+  }
   getInitialCards(fullLink) {
-    return this._fetchWithAuthorization(`${this._url}${fullLink}`, {}).catch(
-      (error) => {
-        console.error(`Error fetching initial cards: ${error.message}`);
-        throw error;
-      }
-    );
+    return this._fetchData(fullLink, {}, 'initial cards');
   }
-
   getUser(fullLink) {
-    return this._fetchWithAuthorization(`${this._url}${fullLink}`, {}).catch(
-      (error) => {
-        console.error(`Error fetching al obtener el usuario: ${error.message}`);
-        throw error;
-      }
-    );
+    return this._fetchData(fullLink, {}, 'al obtener el usuario');
   }
-
   setUserInfo(fullLink, dataUser) {
-    const url = `${this._url}${fullLink}`;
     const options = {
       method: "PATCH",
       body: JSON.stringify({
@@ -48,58 +51,28 @@ export default class Api {
         name: dataUser.name,
       }),
     };
-    return this._fetchWithAuthorization(url, options);
+    return this._fetchData(fullLink, options, 'user info');
   }
-
   AddProductToCart(fullLink, dataProduct) {
-    const url = `${this._url}${fullLink}`;
-    const options = {
-      method: "POST",
-      body: JSON.stringify({
-        productName: dataProduct.productName,
-        price: Number(dataProduct.price),
-        stock: Number(dataProduct.stock),
-      }),
-    };
-    return this._fetchWithAuthorization(url, options);
+    const options = this._createOptions(dataProduct);
+    return this._fetchData(fullLink, options, 'adding product to cart');
   }
-
   getProductsCart(fullLink) {
-    return this._fetchWithAuthorization(`${this._url}${fullLink}`, {}).catch(
-      (error) => {
-        console.error(`Error fetching al obtener productos: ${error.message}`);
-        throw error;
-      }
-    );
+    return this._fetchData(fullLink, {}, 'products in cart');
   }
 
   RemoveProductQuantity(fullLink) {
-    const url = `${this._url}${fullLink}`;
     const options = {
       method: "DELETE",
     };
-    return this._fetchWithAuthorization(url, options);
+    return this._fetchData(fullLink, options, 'removing product quantity');
   }
 
   AddProductToFavorites(fullLink, dataProduct) {
-    const url = `${this._url}${fullLink}`;
-    const options = {
-      method: "POST",
-      body: JSON.stringify({
-        productName: dataProduct.productName,
-        price: Number(dataProduct.price),
-        stock: Number(dataProduct.stock),
-      }),
-    };
-    return this._fetchWithAuthorization(url, options);
+    const options = this._createOptions(dataProduct);
+    return this._fetchData(fullLink, options, 'adding product to favorites');
   }
-  
   getFavoritesProducts(fullLink) {
-    return this._fetchWithAuthorization(`${this._url}${fullLink}`, {}).catch(
-      (error) => {
-        console.error(`Error fetching al obtener productos: ${error.message}`);
-        throw error;
-      }
-    );
+    return this._fetchData(fullLink, {}, 'favorite products');
   }
 }

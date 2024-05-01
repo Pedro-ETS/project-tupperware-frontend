@@ -1,5 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 function ProductView({ productoData, closeAllPopups }) {
+   // Función para manejar el evento de presionar la tecla "Esc"
+   const handleEscKey = (event) => {
+    if (event.key === "Escape") {
+      closeAllPopups();
+    }
+  };
+
+  // Agregar un event listener cuando el componente se monta
+  useEffect(() => {
+    document.addEventListener("keydown", handleEscKey);
+    // Remover el event listener cuando el componente se desmonta
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+    };
+  }, []);
   return (
     <div className={`product-viwe ${productoData ? "product-viwe_opened" : ""}`}>
       <div className="product-viwe__content">
