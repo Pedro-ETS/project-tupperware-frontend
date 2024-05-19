@@ -29,17 +29,14 @@ function App() {
   function handleLogin(data) {
     setToken(data);
   }
-  function clearCartStatus() {
+
+  function cleanUserInformation(){
     setCartProducts([]);
-  }
-  function clearCurrentUsert() {
     setCurrentUser(null);
-  }
-  function clearFavorites() {
     setFavoriteProducts([]);
   }
-  function productView({ name, link, price, stock }) {
-    setProducto({ name, link, price, stock });
+  function productView({ name, link, image2, price, stock }) {
+    setProducto({ name, link, image2, price, stock });
   }
   function tokenCheck() {
     console.log("se llamo el tokenchek");
@@ -60,6 +57,8 @@ function App() {
   }
   async function handleAddProductToCart(dataProduct) {
     let productId = dataProduct.productId;
+
+    console.log(dataProduct); 
     try {
       const res = await api.AddProductToCart(
         `users/${productId}/add-to-cart`,
@@ -69,12 +68,13 @@ function App() {
       const newCartProducts = [...CartProducts.data];
       setCartProducts(newCartProducts);
     } catch (error) {
-      alert("Error al agregar un producto al carrito:", error);
+      alert("Error al agregar un producto al carrito, debes iniciar sesion", error);
     }
   }
 
   async function handleSubtractFromCartQuantity(dataProduct) {
     let productId = dataProduct.productId;
+    console.log(dataProduct);
     try {
       const res = await api.RemoveProductQuantity(
         `users/${productId}/delete-to-cart`
@@ -100,18 +100,33 @@ function App() {
       const newfavoritesProducts = [...initialFavoritesProducts.data];
       setFavoriteProducts(newfavoritesProducts);
     } catch (error) {
-      alert("Error al agregar un producto a favoritos:", error);
+      alert("Error al agregar un producto a favoritos,   debes iniciar sesion", error);
+    }
+  }  
+
+  async function handleRemoveProductToFavorites(productId) {
+    try {
+      const res = await api.RemoveProductfavorites(
+        `users/${productId}/remove-to-favorites`
+      );
+      const initialFavoritesProducts = await api.getFavoritesProducts(
+        "users/products/favorites"
+      );
+      const newfavoritesProducts = [...initialFavoritesProducts.data];
+      setFavoriteProducts(newfavoritesProducts);
+    } catch (error) {
+      alert("Error al eliminar  un producto a favoritos:", error);
     }
   }
 
   useEffect(() => {
     (async () => {
-      try {
-        await tokenCheck();
-        if (token) {
+      try { 
           const initialCardsData = await api.getInitialCards("cards");
           setCards(initialCardsData.data);
-        }
+          if (token) {
+            await tokenCheck();
+                   }
       } catch (error) {
         console.log("Error al obtener datos:", error);
       }
@@ -131,9 +146,6 @@ function App() {
               exact
               path="/"
               element={
-                <ProtectedRoute
-                  token={token}
-                  element={
                     <Main
                       cards={cards}
                       cartProducts={cartProducts}
@@ -143,13 +155,11 @@ function App() {
                       productoData={producto}
                       closeAllPopups={closeAllPopups}
                       handleAddProductToCart={handleAddProductToCart}
-                      clearCartStatus={clearCartStatus}
-                      clearCurrentUsert={clearCurrentUsert}
                       handleAddProductToFavorites={handleAddProductToFavorites}
-                      clearFavorites={clearFavorites}
+                      cleanUserInformation={cleanUserInformation}
+                      token={token}
                     />
-                  }
-                ></ProtectedRoute>
+                
               }
             />
             <Route
@@ -179,7 +189,11 @@ function App() {
               element={
                 <ProtectedRoute
                   token={token}
-                  element={<Favorites favoriteProducts={favoriteProducts} />}
+                  element={<Favorites 
+                  favoriteProducts={favoriteProducts} 
+                  handleAddProductToCart={handleAddProductToCart} 
+                  handleRemoveProductToFavorites={handleRemoveProductToFavorites}
+                  />}
                 ></ProtectedRoute>
               }
             />

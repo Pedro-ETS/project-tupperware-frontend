@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
  import InfoTooltip from "../InfoTooltip/InfoTooltip";
 import * as auth from "../../utils/auth";
@@ -12,6 +12,12 @@ function Register(props) {
   const [password, setPassword] = useState("");
   const [showTooltip, setShowTooltip] = useState(false);
   const [showTooltipError, setShowTooltipError] = useState(false);//error
+  const [nameErrorVisible, setNameErrorVisible] = useState(false);
+  const [addressErrorVisible, setAddressErrorVisible] = useState(false);
+  const [phoneErrorVisible, setPhoneErrorVisible] = useState(false);
+  const [emailErrorVisible, setEmailErrorVisible] = useState(false);
+  const [passwordErrorVisible, setPasswordErrorVisible] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const navigate = useNavigate();
   const mensaje = "¡Correcto!. Ya estas registrado";
   const mensajeError = "¡Lo siento!. No se completo el registro";
@@ -58,36 +64,79 @@ function Register(props) {
     setShowTooltipError(false);
   };
   
+  useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const isEmailValid = emailRegex.test(email);
+
+    if (name.length > 0) {
+      setNameErrorVisible(name.length<10);
+    }
+    if(address.length>0){
+      setAddressErrorVisible(address.length<8);
+    }
+    if(phone.length>0){
+      setPhoneErrorVisible(phone.length<10);
+    }
+    if (email.length > 0) {
+      setEmailErrorVisible(!isEmailValid);
+    }
+    if(password.length>0){
+      setPasswordErrorVisible(password.length<8);
+    }
+    setButtonDisabled(name.length>=10 &&  address.length>=8 && phone.length>=10 && isEmailValid && password.length>=8);
+  }, [name,address,phone,email,password]);
+
   return (
     <div className="register">
-      <form className="register__form" onSubmit={handleSubmit}>
-        <h1 className="register__titulo">Registrate</h1>
+      <form className="register-form" onSubmit={handleSubmit}>
+        <h1 className="register-form__titulo">Registrate</h1>
         <input
-          className="register__input"
+          className="register-form__input"
           placeholder="Nombre Completo"
           required
           name="name"
           type="string"
           onChange={handleChange}
         />
+         <span
+            className={`register-form__input-error register-form-name-error ${
+              nameErrorVisible ? "register-form__input-error_active" : ""
+            }`}
+          >
+            10 caracteres minimo
+          </span>
         <input
-          className="register__input"
+          className="register-form__input"
           placeholder="Direccion"
           required
           name="address"
           type="string"
           onChange={handleChange}
         />
+        <span
+            className={`register-form__input-error register-form-address-error ${
+              addressErrorVisible ? "register-form__input-error_active" : ""
+            }`}
+          >
+            8 caracteres minimo
+          </span>
         <input
-          className="register__input"
+          className="register-form__input"
           placeholder="Telefono"
           required
           name="phone"
           type="string"
           onChange={handleChange}
         />
+        <span
+            className={`register-form__input-error register-form-phone-error ${
+              phoneErrorVisible? "register-form__input-error_active" : ""
+            }`}
+          >
+            10 digitos o mas
+          </span>
         <input
-          className="register__input"
+          className="register-form__input"
           placeholder="Correo electronico"
           required
           name="email"
@@ -95,8 +144,15 @@ function Register(props) {
           value={email}
           onChange={handleChange}
         />
+        <span
+            className={`register-form__input-error register-form-email-error ${
+              emailErrorVisible? "register-form__input-error_active" : ""
+            }`}
+          >
+           correo invalido
+          </span>
         <input
-          className="register__input"
+          className="register-form__input"
           placeholder="Contraseña"
           name="password"
           type="password"
@@ -104,8 +160,20 @@ function Register(props) {
           value={password}
           onChange={handleChange}
         />
-        <button className="register__btn-save">Registrate</button>
-        <Link className="register__link" to="/signin">
+        <span
+            className={`register-form__input-error register-form-email-error ${
+              passwordErrorVisible? "register-form__input-error_active" : ""
+            }`}
+          >
+           8 caracteres minimo
+          </span>
+
+        <button  className={`register-form__btn-save ${
+              buttonDisabled ? "" : "register-form__btn-save_disabled"
+            }`}>Registrate</button>
+
+
+        <Link className="register-form__link" to="/signin">
           ¿Ya eres miembro? Inicia sesion aqui
         </Link>
       </form>

@@ -1,17 +1,17 @@
 .header{
     width: 100%;
-    max-height: 60 px;
+    max-height: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background-color: bisque;
+    background-color: #d91716;
     padding-top: 10px;
 }
 .header__titulo{
     max-width: 400px;
     height: 70px;
-    color: #F206FD;
-    font-family: "Inter-Black";
-    font-size: 50px;
+    color: white;
+    font-family: "Inter-Regular";
+    font-size: 20px;
     margin: 0 auto;
 }

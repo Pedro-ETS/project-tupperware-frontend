@@ -8,7 +8,7 @@ const NavBar = ({cartProducts,favoriteProducts}) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
-        <NavLink to="/" className="navbar-brand">
+        <NavLink to="/" className="navbar-brand" style={{ color: '#F206FD', fontWeight: 'bold' }}>
           Tupperware
         </NavLink>
         <div className="d-flex">

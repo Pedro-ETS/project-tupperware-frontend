@@ -20,10 +20,25 @@ export default class Api {
       }
     });
   }
+  _fetchWithoutAuthorization(url, options) {// manejar solicitudes sin el encabezado de autorización.
+    return fetch(url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      } else {
+        throw new Error(`Error: ${res.statusText} (${res.status})`);
+      }
+    });
+  }
+  
   _fetchData(fullLink, options, errorMessage) {
     return this._fetchWithAuthorization(`${this._url}${fullLink}`, options)
       .catch((error) => {
-        console.error(`Error fetching ${errorMessage}: ${error.message}`);
         throw error;
       });
   }
@@ -32,13 +47,15 @@ export default class Api {
       method: "POST",
       body: JSON.stringify({
         productName: dataProduct.productName,
+        imageUrl: dataProduct.link,
         price: Number(dataProduct.price),
         stock: Number(dataProduct.stock),
       }),
     };
   }
+
   getInitialCards(fullLink) {
-    return this._fetchData(fullLink, {}, 'initial cards');
+    return this._fetchWithoutAuthorization(`${this._url}${fullLink}`, {}, 'initial cards');
   }
   getUser(fullLink) {
     return this._fetchData(fullLink, {}, 'al obtener el usuario');
@@ -74,5 +91,13 @@ export default class Api {
   }
   getFavoritesProducts(fullLink) {
     return this._fetchData(fullLink, {}, 'favorite products');
+  }
+
+  RemoveProductfavorites(fullLink) {
+    console.log(fullLink);
+    const options = {
+      method: "DELETE",
+    };
+    return this._fetchData(fullLink, options, 'removing product favorites');
   }
 }

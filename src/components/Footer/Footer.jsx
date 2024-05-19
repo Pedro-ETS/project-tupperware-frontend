@@ -33,8 +33,7 @@ const FooterBEM = () => {
       <div className="footer__section">
         <h2 className="footer__title">Compra sin respresentante</h2>
         <p className="footer__text">El éxito de nuestra compañía está fundamentado en los principios de sustentabilidad y 
-        diseño innovador de nuestros productos funcionales, seguros y de alta calidad. Nos esforzamos por alcanzar 
-        la excelencia en nuestros productos, servicios y procesos, para reforzar la confianza en nuestra marca</p>
+        diseño innovador de nuestros productos funcionales, seguros y de alta calidad.</p>
       </div>
     </footer>
   );

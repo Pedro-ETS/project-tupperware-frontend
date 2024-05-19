@@ -1,87 +1,132 @@
 .product-viwe {
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.9);
-    position: fixed;
-    top:0px;
-    left:0px;
-    display: none;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.9);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-viwe_opened {
+  display: flex;
+}
+
+.product-viwe__name,
+.product-viwe__price,
+.product-viwe__stock {
+  color: #fff;
+  font-size: 14px;
+  font-family: "Inter-Regular";
+  margin-top: 5px;
+
+}
+
+.product-viwe__image-normal {
+  max-width: 360px;
+  max-height: 320px;
+  border-radius: 10px;
+  color: #fff;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.product-view__thumbnail {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+  margin-top: 8px;
+}
+
+.product-view__thumbnail:hover {
+  border-color: #fff;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  transform: scale(1.05);
+}
+
+.product-viwe__content {
+  max-width: 816px;
+  min-width: 270px;
+  max-height: 600px;
+  min-height: 322px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.product-viwe__btn-close {
+  width: 30px;
+  height: 30px;
+  background-image: url("../../images/CloseIcon.svg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-color: transparent;
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  border: none;
+  cursor: pointer;
+}
+
+.product-viwe__btn-close:hover {
+  opacity: 0.5;
+}
+
+@media screen and (max-width: 768px) {
+  .product-viwe__content {
+    padding: 20px;
+    max-width: 90%;
   }
-  .product-viwe_opened {
-    display: flex;
+  .product-viwe__image-normal {
+    width: 80%;
+    height: auto;
   }
-  .product-viwe__name {
-    color: #fff;
-    font-size: 12px;
-    font-family: "Inter-Regular";
-    margin-top: 5px;
-  }
-  .product-viwe__price {
-    color: #fff;
-    font-size: 12px;
-    font-family: "Inter-Regular";
-    margin-top: 5px;
-  }
-  .product-viwe__stock {
-    color: #fff;
-    font-size: 12px;
-    font-family: "Inter-Regular";
-    margin-top: 5px;
+}
+
+@media screen and (max-width: 480px) {
+  .product-viwe__content {
+    padding: 15px;
   }
   .product-viwe__image-normal {
     width: 100%;
-    max-height: 540px;
-    color: #fff;
+    height: auto;
   }
-  .product-viwe__content {
-    max-width: 816px;
-    min-width: 270px;
-    max-height: 520px;
-    min-height: 322px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: relative;
-    
-  }
+}
+
+@media screen and (max-width: 537px) {
   .product-viwe__btn-close {
-    width: 40px;
-    height: 40px;
-    background-image: url("../../images/CloseIcon.svg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    position: absolute;
-    top: -40px;
-    right: -40px;
-    border: none;
-    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    top: 5px;
+    right: 5px;
   }
-  .product-viwe__btn-close:hover {
-    opacity: 0.5;
+}
+
+@media screen and (max-width: 840px) {
+  .big-picture__content {
+    max-width: 433px;
   }
-  @media screen and (max-width: 537px) {
-    .product-viwe__btn-close {
-      width: 20px;
-      height: 20px;
-      top: -27px;
-      right: -0px;
-    }
+}
+
+@media screen and (max-width: 440px) {
+  .product-viwe__image-normal {
+    height: 300px;
   }
-  @media screen and (max-width: 840px) {
-    .big-picture__content {
-      max-width: 433px;
-    }
+  .big-picture__content {
+    width: 240px;
+    height: 320px;
   }
-  @media screen and (max-width: 440px) {
-    .product-viwe__image-normal {
-      height: 300px;
-    }
-    .big-picture__content {
-        width: 240px;
-        height: 320px;
-      }
-  }
-  
+}

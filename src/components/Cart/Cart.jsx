@@ -16,8 +16,8 @@ const Cart = ({ cartProducts, handleAddProductToCart, handleSubtractFromCartQuan
     setTotalCart(calculateTotalCart(cartProducts));
   }, [cartProducts]);
 
-  const handleAddQuantity = (productId, productName, price, stock) => {
-    handleAddProductToCart({ productId, productName, price, stock });
+  const handleAddQuantity = (productId, link, productName, price, stock) => {
+    handleAddProductToCart({ productId, link, productName, price, stock });
   };
 
   const handleRestQuantity = (productId) => {
@@ -29,7 +29,8 @@ const Cart = ({ cartProducts, handleAddProductToCart, handleSubtractFromCartQuan
       <h2 className="cart__title">Carrito de Compras</h2>
       <div className="cart__items">
         {cartProducts.map((item) => (
-          <div key={item.productId} className="cart__item">
+          <div key={item.productId} className="cart__item"> 
+           <img src={item.imageUrl} alt={item.productName} className="cart__item-image"/>
             <span className="cart__item-name">{item.productName}</span>
             <span className="cart__item-stock">Existencias: {item.stock ? item.stock : "Agotado"}</span>
             <span className="cart__item-price">Precio MXN$: {item.price}</span>
@@ -37,7 +38,7 @@ const Cart = ({ cartProducts, handleAddProductToCart, handleSubtractFromCartQuan
             <div className="cart__item-quantity">
               <button onClick={() => handleRestQuantity(item.productId)} className="cart__item-action cart__item-action--remove">-</button>
               <span className="cart__item-quantity-value">{item.quantity}</span>
-              <button onClick={() => handleAddQuantity(item.productId, item.productName, item.price, item.stock)} className="cart__item-action cart__item-action--add">+</button>
+              <button onClick={() => handleAddQuantity(item.productId, item.imageUrl,item.productName, item.price, item.stock)} className="cart__item-action cart__item-action--add">+</button>
             </div>
           </div>
         ))}
