@@ -32,6 +32,7 @@ export default class Api {
       method: "POST",
       body: JSON.stringify({
         productName: dataProduct.productName,
+        imageUrl: dataProduct.link,
         price: Number(dataProduct.price),
         stock: Number(dataProduct.stock),
       }),
@@ -74,5 +75,13 @@ export default class Api {
   }
   getFavoritesProducts(fullLink) {
     return this._fetchData(fullLink, {}, 'favorite products');
+  }
+
+  RemoveProductfavorites(fullLink) {
+    console.log(fullLink);
+    const options = {
+      method: "DELETE",
+    };
+    return this._fetchData(fullLink, options, 'removing product favorites');
   }
 }

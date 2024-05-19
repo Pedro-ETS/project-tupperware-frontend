@@ -29,13 +29,10 @@ function App() {
   function handleLogin(data) {
     setToken(data);
   }
-  function clearCartStatus() {
+
+  function cleanUserInformation(){
     setCartProducts([]);
-  }
-  function clearCurrentUsert() {
     setCurrentUser(null);
-  }
-  function clearFavorites() {
     setFavoriteProducts([]);
   }
   function productView({ name, link, price, stock }) {
@@ -60,6 +57,8 @@ function App() {
   }
   async function handleAddProductToCart(dataProduct) {
     let productId = dataProduct.productId;
+
+    console.log(dataProduct); 
     try {
       const res = await api.AddProductToCart(
         `users/${productId}/add-to-cart`,
@@ -75,6 +74,7 @@ function App() {
 
   async function handleSubtractFromCartQuantity(dataProduct) {
     let productId = dataProduct.productId;
+    console.log(dataProduct);
     try {
       const res = await api.RemoveProductQuantity(
         `users/${productId}/delete-to-cart`
@@ -101,6 +101,21 @@ function App() {
       setFavoriteProducts(newfavoritesProducts);
     } catch (error) {
       alert("Error al agregar un producto a favoritos:", error);
+    }
+  }  
+
+  async function handleRemoveProductToFavorites(productId) {
+    try {
+      const res = await api.RemoveProductfavorites(
+        `users/${productId}/remove-to-favorites`
+      );
+      const initialFavoritesProducts = await api.getFavoritesProducts(
+        "users/products/favorites"
+      );
+      const newfavoritesProducts = [...initialFavoritesProducts.data];
+      setFavoriteProducts(newfavoritesProducts);
+    } catch (error) {
+      alert("Error al eliminar  un producto a favoritos:", error);
     }
   }
 
@@ -143,10 +158,8 @@ function App() {
                       productoData={producto}
                       closeAllPopups={closeAllPopups}
                       handleAddProductToCart={handleAddProductToCart}
-                      clearCartStatus={clearCartStatus}
-                      clearCurrentUsert={clearCurrentUsert}
                       handleAddProductToFavorites={handleAddProductToFavorites}
-                      clearFavorites={clearFavorites}
+                      cleanUserInformation={cleanUserInformation}
                     />
                   }
                 ></ProtectedRoute>
@@ -179,7 +192,11 @@ function App() {
               element={
                 <ProtectedRoute
                   token={token}
-                  element={<Favorites favoriteProducts={favoriteProducts} />}
+                  element={<Favorites 
+                  favoriteProducts={favoriteProducts} 
+                  handleAddProductToCart={handleAddProductToCart} 
+                  handleRemoveProductToFavorites={handleRemoveProductToFavorites}
+                  />}
                 ></ProtectedRoute>
               }
             />

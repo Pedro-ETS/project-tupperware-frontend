@@ -2,7 +2,7 @@
   import { FaSignOutAlt } from 'react-icons/fa';
   import { NavLink } from "react-router-dom";
   import CurrentUserContext from "../../contexts/CurrentUserContext";
-  function Profile({handleLogin,clearCartStatus,clearCurrentUsert,clearFavorites}) {
+  function Profile({handleLogin,cleanUserInformation}) {
     const currentUser = React.useContext(CurrentUserContext);
     const name= currentUser && currentUser.name;
     const address = currentUser && currentUser.address;
@@ -11,9 +11,7 @@
     function signOut() {
       localStorage.removeItem("token");
       handleLogin(null);
-      clearCartStatus();
-      clearCurrentUsert();
-      clearFavorites();
+      cleanUserInformation();
     }
 
     return (

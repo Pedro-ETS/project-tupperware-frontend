@@ -23,11 +23,11 @@ function Card({
   function handleImgCard() {
     productView({ link, name, price, stock });
   }
-  function handleCartProductsClick(productId, productName, price, stock) {
-    handleAddProductToCart({ productId, productName, price, stock });
+  function handleCartProductsClick(productId, link, productName, price, stock) {
+    handleAddProductToCart({ productId, link, productName, price, stock });
   }
-  function handleAddFavorites(productId, productName, price, stock) {
-    handleAddProductToFavorites({ productId, productName, price, stock });
+  function handleAddFavorites(productId, link, productName, price, stock) {
+    handleAddProductToFavorites({ productId, link, productName, price, stock });
   }
 
   return (
@@ -44,12 +44,12 @@ function Card({
       <div className="card__contet">
         <button
           className={cardLikeButtonClassName}
-          onClick={() => handleAddFavorites(_id, name, price, stock)}
+          onClick={() => handleAddFavorites(_id, link, name, price, stock)}
         ></button>
 
         <button
           className={cardCartButtonClassName}
-          onClick={() => handleCartProductsClick(_id, name, price, stock)}
+          onClick={() => handleCartProductsClick(_id, link, name, price, stock)}
         ></button>
       </div>
     </div>

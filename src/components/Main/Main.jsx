@@ -11,14 +11,12 @@ function Main({
     productoData,
     closeAllPopups,
     handleAddProductToCart,
-    clearCartStatus,
-    clearCurrentUsert,
     handleAddProductToFavorites,
-    clearFavorites
+    cleanUserInformation
 }) {
     return (
         <div>
-            <Profile handleLogin={handleLogin} clearCartStatus={clearCartStatus} clearCurrentUsert={clearCurrentUsert} clearFavorites={clearFavorites}/>
+            <Profile handleLogin={handleLogin} cleanUserInformation={cleanUserInformation}/>
             <Cards cards={cards} 
             productView={productView} 
             handleAddProductToCart={handleAddProductToCart}
