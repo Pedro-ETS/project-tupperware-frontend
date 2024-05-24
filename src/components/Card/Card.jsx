@@ -6,7 +6,7 @@ function Card({
   handleAddProductToFavorites,
   favoriteProducts,
 }) {
-  const { _id, name, price, stock, link } = card;
+  const { _id, name, price, stock, link, image2 } = card;
   const isProductInCart = cartProducts.some(
     (product) => product.productId === _id
   );
@@ -21,7 +21,7 @@ function Card({
   }`;
 
   function handleImgCard() {
-    productView({ link, name, price, stock });
+    productView({ link, image2, name, price, stock });
   }
   function handleCartProductsClick(productId, link, productName, price, stock) {
     handleAddProductToCart({ productId, link, productName, price, stock });

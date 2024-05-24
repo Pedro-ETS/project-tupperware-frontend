@@ -1,16 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect,useState } from "react";
 function ProductView({ productoData, closeAllPopups }) {
-   // Función para manejar el evento de presionar la tecla "Esc"
+  const [mainImage, setMainImage] = useState(productoData.link);
+  const defaultImage = "https://logodix.com/logo/598782.jpg";
+
    const handleEscKey = (event) => {
     if (event.key === "Escape") {
       closeAllPopups();
     }
   };
+  const handleImageClick = (image) => {
+    setMainImage(image);
+  };
 
-  // Agregar un event listener cuando el componente se monta
+  const getAltText = (image) => {
+    return !image  ? `imagen por default no hay una segunda foto de producto` : `Una imagen de un producto llamado ${productoData.name}`;
+  };
+
   useEffect(() => {
     document.addEventListener("keydown", handleEscKey);
-    // Remover el event listener cuando el componente se desmonta
     return () => {
       document.removeEventListener("keydown", handleEscKey);
     };
@@ -18,10 +25,28 @@ function ProductView({ productoData, closeAllPopups }) {
   return (
     <div className={`product-viwe ${productoData ? "product-viwe_opened" : ""}`}>
       <div className="product-viwe__content">
-        <img src={productoData.link} className="product-viwe__image-normal" alt={`Una imagen muy hermosa del lugar${productoData.name}`}/>  
+      <img
+          src={mainImage}
+          className="product-viwe__image-normal"
+          alt={getAltText(mainImage)}
+        />  
+        <div> 
+        <img
+            src={productoData.link}
+            className="product-view__thumbnail"
+            onClick={() => handleImageClick(productoData.link)}
+            alt={`Imagen pequeña  ${productoData.name}`}
+          />
+          <img
+            src={productoData.image2|| defaultImage }
+            className="product-view__thumbnail"
+            onClick={() => handleImageClick(productoData.image2)}
+            alt={`Imagen pequeña ${productoData.image2 ? "" : "(sin foto)"}`}
+          />
+        </div>
         <h2 className="product-viwe__name">{productoData.name}</h2>
-        <p className="product-viwe__price">{"Precio: "+productoData.price}</p>
-        <p className="product-viwe__stock">{"Existencia:"+productoData.stock}</p>
+        <p className="product-viwe__price">{"Precio mxn$: "+productoData.price}</p>
+        <p className="product-viwe__stock">{"Existencias: "+productoData.stock}</p>
         <button className="product-viwe__btn-close" onClick={closeAllPopups}></button>
       </div>
     </div>

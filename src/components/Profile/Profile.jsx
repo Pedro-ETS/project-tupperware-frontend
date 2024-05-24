@@ -2,7 +2,7 @@
   import { FaSignOutAlt } from 'react-icons/fa';
   import { NavLink } from "react-router-dom";
   import CurrentUserContext from "../../contexts/CurrentUserContext";
-  function Profile({handleLogin,cleanUserInformation}) {
+  function Profile({handleLogin,cleanUserInformation, token}) {
     const currentUser = React.useContext(CurrentUserContext);
     const name= currentUser && currentUser.name;
     const address = currentUser && currentUser.address;
@@ -12,6 +12,10 @@
       localStorage.removeItem("token");
       handleLogin(null);
       cleanUserInformation();
+    }
+    if (!token) {
+      // Si no hay usuario autenticado, no renderizar el componente
+      return null;
     }
 
     return (

@@ -35,8 +35,8 @@ function App() {
     setCurrentUser(null);
     setFavoriteProducts([]);
   }
-  function productView({ name, link, price, stock }) {
-    setProducto({ name, link, price, stock });
+  function productView({ name, link, image2, price, stock }) {
+    setProducto({ name, link, image2, price, stock });
   }
   function tokenCheck() {
     console.log("se llamo el tokenchek");
@@ -68,7 +68,7 @@ function App() {
       const newCartProducts = [...CartProducts.data];
       setCartProducts(newCartProducts);
     } catch (error) {
-      alert("Error al agregar un producto al carrito:", error);
+      alert("Error al agregar un producto al carrito, debes iniciar sesion", error);
     }
   }
 
@@ -100,7 +100,22 @@ function App() {
       const newfavoritesProducts = [...initialFavoritesProducts.data];
       setFavoriteProducts(newfavoritesProducts);
     } catch (error) {
-      alert("Error al agregar un producto a favoritos:", error);
+      alert("Error al agregar un producto a favoritos,   debes iniciar sesion", error);
+    }
+  }  
+
+  async function handleRemoveProductToFavorites(productId) {
+    try {
+      const res = await api.RemoveProductfavorites(
+        `users/${productId}/remove-to-favorites`
+      );
+      const initialFavoritesProducts = await api.getFavoritesProducts(
+        "users/products/favorites"
+      );
+      const newfavoritesProducts = [...initialFavoritesProducts.data];
+      setFavoriteProducts(newfavoritesProducts);
+    } catch (error) {
+      alert("Error al eliminar  un producto a favoritos:", error);
     }
   }  
 
@@ -121,12 +136,12 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      try {
-        await tokenCheck();
-        if (token) {
+      try { 
           const initialCardsData = await api.getInitialCards("cards");
           setCards(initialCardsData.data);
-        }
+          if (token) {
+            await tokenCheck();
+                   }
       } catch (error) {
         console.log("Error al obtener datos:", error);
       }
@@ -146,9 +161,6 @@ function App() {
               exact
               path="/"
               element={
-                <ProtectedRoute
-                  token={token}
-                  element={
                     <Main
                       cards={cards}
                       cartProducts={cartProducts}
@@ -160,9 +172,9 @@ function App() {
                       handleAddProductToCart={handleAddProductToCart}
                       handleAddProductToFavorites={handleAddProductToFavorites}
                       cleanUserInformation={cleanUserInformation}
+                      token={token}
                     />
-                  }
-                ></ProtectedRoute>
+                
               }
             />
             <Route

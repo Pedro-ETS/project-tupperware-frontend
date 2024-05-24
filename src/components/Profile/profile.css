@@ -5,7 +5,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #FF811E;
+    background-color: #f9f9f9;
     border-radius: 10px;
   }
 .profile__content-fond_opened{
@@ -18,7 +18,7 @@
     justify-content: space-between;
   }
   .profile__subtitle {
-    color: #fff;
+    color: gray;
     font-family: "Inter-SemiBold";
     font-size: 42px;
     max-width: 378px;
@@ -29,7 +29,7 @@
     overflow: hidden;
   }
   .profile__text {
-    color: #fff;
+    color: gray;
     font-family: "Inter-Regular";
     font-size: 18px;
     margin-top: 16px;
@@ -40,7 +40,7 @@
     max-width: 280px;
   }
   .profile__gmail {
-    color: #fff;
+    color: gray;
     font-family: "Inter-Regular";
     font-size: 18px;
     margin-top: 16px;
