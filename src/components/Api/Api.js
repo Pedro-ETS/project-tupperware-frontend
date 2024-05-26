@@ -57,6 +57,13 @@ export default class Api {
   getInitialCards(fullLink) {
     return this._fetchWithoutAuthorization(`${this._url}${fullLink}`, {}, 'initial cards');
   }
+
+  getProductSearch(fullLink){
+    return this._fetchData(fullLink, {}, 'initial cards');
+  }
+
+
+
   getUser(fullLink) {
     return this._fetchData(fullLink, {}, 'al obtener el usuario');
   }

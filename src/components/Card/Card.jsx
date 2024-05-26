@@ -6,7 +6,7 @@ function Card({
   handleAddProductToFavorites,
   favoriteProducts,
 }) {
-  const { _id, name, price, stock, link, image2 } = card;
+  const { _id, name, priceNormal, price, stock, link, image2 } = card;
   const isProductInCart = cartProducts.some(
     (product) => product.productId === _id
   );
@@ -39,8 +39,9 @@ function Card({
         onClick={handleImgCard}
       />
       <h2 className="card__subtitle"> {name} </h2>
-      <p className="card__price">{"mxn $:" + price}</p>
-      <p className="card__price">{"Existencias:" + stock}</p>
+      <p className="card__price-normal">{"precio normal mxn $:" + priceNormal}</p>
+      <p className="card__price">{"precio venta mxn $:" +price}</p>
+      <p className="card__stock">{"Existencias:" + stock}</p>
       <div className="card__contet">
         <button
           className={cardLikeButtonClassName}

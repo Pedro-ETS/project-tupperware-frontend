@@ -1,10 +1,26 @@
-import React from "react";
+import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome, FaShoppingCart, FaUser, FaUserPlus, FaHeart } from 'react-icons/fa';
 
-const NavBar = ({cartProducts,favoriteProducts}) => {
+
+const NavBar = ({cartProducts,favoriteProducts,handleSearchProduct}) => {
   const totalCartItems = cartProducts.reduce((total, product) => total + product.quantity, 0);
   const totalFavoritesItems = favoriteProducts.length;
+  const [searchValue, setSearchValue] = useState("");
+
+  const handleSearchChange = (e) => {
+    setSearchValue(e.target.value);
+  };
+  
+  const handleSearchSubmit = () => {
+    if (searchValue.trim() === "") {
+      handleSearchProduct(""); // Si el campo de búsqueda está vacío, mostrar todos los productos
+    } else {
+      handleSearchProduct(searchValue);
+    }
+
+  };
+  
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
@@ -17,13 +33,14 @@ const NavBar = ({cartProducts,favoriteProducts}) => {
             type="search"
             placeholder="Buscar"
             aria-label="Buscar"
+            onChange={handleSearchChange}
           />
-          <button className="btn btn-outline-light" type="submit">
+          <button className="btn btn-outline-light" type="submit" onClick={handleSearchSubmit}>
             Buscar
           </button>
         </div>
         <button
-          className="navbar-toggler"
+          className="navbar-toggler collapsed"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -33,7 +50,7 @@ const NavBar = ({cartProducts,favoriteProducts}) => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse " id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink exact="true" className="nav-link" to="/">

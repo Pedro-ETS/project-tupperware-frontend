@@ -1,6 +1,6 @@
 .header{
     width: 100%;
-    max-height: 100px;
+    max-height: 390px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -9,7 +9,6 @@
 }
 .header__titulo{
     max-width: 400px;
-    height: 70px;
     color: white;
     font-family: "Inter-Regular";
     font-size: 20px;

@@ -1,5 +1,6 @@
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
@@ -23,9 +24,10 @@ function App() {
   const [favoriteProducts, setFavoriteProducts] = useState([]);
   const navigate = useNavigate();
 
-  const closeAllPopups = () => {
+  const closeAllPopups = () => {//cierra la ventana de vista del producto
     setProducto(null);
   };
+
   function handleLogin(data) {
     setToken(data);
   }
@@ -35,9 +37,10 @@ function App() {
     setCurrentUser(null);
     setFavoriteProducts([]);
   }
-  function productView({ name, link, image2, price, stock }) {
+  function productView({ name, link, image2, price, stock }) {//funcion que ingresa datos del producto
     setProducto({ name, link, image2, price, stock });
   }
+
   function tokenCheck() {
     console.log("se llamo el tokenchek");
 
@@ -72,6 +75,31 @@ function App() {
     }
   }
 
+  async function handleSearchProduct(nameProduct) {
+    try {
+      if (nameProduct){
+        const res = await api.getProductSearch(
+          `cards/search/${nameProduct}`
+        );
+        console.log("informacion de card");
+        console.log(res.data);
+        let arrayProductos = [];
+        if (Array.isArray(res.data) && res.data.length > 0) {
+          const productData = res.data[0]; 
+          arrayProductos.push(productData);
+          setCards(arrayProductos);
+        }
+      }else{
+        const initialCardsData = await api.getInitialCards("cards");
+        setCards(initialCardsData.data);
+      }
+      
+    } catch (error) {
+      alert("Error el producto no se encuentra", error);
+    }
+  }
+
+    
   async function handleSubtractFromCartQuantity(dataProduct) {
     let productId = dataProduct.productId;
     console.log(dataProduct);
@@ -155,6 +183,7 @@ function App() {
           <Header
             cartProducts={cartProducts}
             favoriteProducts={favoriteProducts}
+            handleSearchProduct={handleSearchProduct}
           />
           <Routes>
             <Route

@@ -1,4 +1,4 @@
-export const BASE_URL = "http://localhost:3000"; 
+export const BASE_URL = "https://project-tupperware-backend.vercel.app"; 
 
 async function sendRequest(url, method, data) {
   const response = await fetch(`${BASE_URL}${url}`, {

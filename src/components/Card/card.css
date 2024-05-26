@@ -35,6 +35,18 @@
   .card__price {
     font-size: 10px;
     min-width: 100%;
+    color: red;
+    text-align: center;
+  }
+  .card__price-normal{
+    font-size: 10px;
+    min-width: 100%;
+    color: #666;
+    text-align: center;
+  }
+  .card__stock {
+    font-size: 10px;
+    min-width: 100%;
     color: #666;
     text-align: center;
   }
