@@ -11,6 +11,7 @@
 @import url("./components/ProductView/product-viwe.css");
 @import url("./components/Cart/cart.css");
 @import url("./components/Favorites/favorites.css");
+@import url("./components/Preloader/preloader.css");
 @import url("./components/Footer/footer.css");
 #root {
   padding: 0 ;

@@ -20,6 +20,11 @@ const NavBar = ({cartProducts,favoriteProducts,handleSearchProduct}) => {
     }
 
   };
+  const handleClearSearch = () => {
+    setSearchValue(""); // Limpiar el campo de búsqueda
+    handleSearchProduct(""); // Mostrar todos los productos
+    console.log(searchValue);
+};
   
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -33,11 +38,17 @@ const NavBar = ({cartProducts,favoriteProducts,handleSearchProduct}) => {
             type="search"
             placeholder="Buscar"
             aria-label="Buscar"
+            value={searchValue}
             onChange={handleSearchChange}
           />
           <button className="btn btn-outline-light" type="submit" onClick={handleSearchSubmit}>
             Buscar
           </button>
+          {searchValue !== "" && ( 
+                        <button className="btn btn-outline-light" type="button" onClick={handleClearSearch}>
+                            Limpiar
+                        </button>
+                    )}
         </div>
         <button
           className="navbar-toggler collapsed"
